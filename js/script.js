@@ -142,6 +142,8 @@ function handleDirection(direction) {
 }
 
 function handleMoveStart(e) {
+	e.preventDefault();
+
 	if (state.blocked) {
 		return;
 	}
@@ -153,6 +155,8 @@ function handleMoveStart(e) {
 }
 
 function handleMoveEnd(e) {
+	e.preventDefault();
+
 	let t = e.changedTouches[0];
 
 	let dx = t.pageX - state.touch.x;
