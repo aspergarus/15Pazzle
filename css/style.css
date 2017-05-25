@@ -7,19 +7,19 @@ body {
 	width: 600px;
 	height: 600px;
 
-	position: absolute; /* Абсолютное позиционирование */
-    left: 50%; /* Положение слоя от левого края */
-    top: 50%; /* Положение слоя от верхнего края */
-    margin-left: -300px; /* Отступ слева */
-    margin-top: -300px;	/* Отступ сверху */
-    background: #fc0; /* Цвет фона */
-    overflow: hidden; /* Добавление полосы прокрутки */
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -300px;
+    margin-top: -300px;
+    background: #fc0;
+    overflow: hidden;
     font-size: 0;
     border-radius: 10px;
 }
 
 .el {
-	transition-duration: 200ms;
+	transition-duration: 500ms;
 
 	position: absolute;
 	outline: none;
@@ -67,6 +67,52 @@ body {
 	color: #6496c8;
 	text-shadow: none;
 	background: #6496c8;
+}
+
+.move-animation {
+	animation-duration: 500ms;
+	animation-name: move;
+	animation-timing-function: linear;
+	z-index: 333;
+}
+
+@keyframes move {
+	0% {
+		transform:scale(1, 1);
+		transform:rotateF(0deg);
+	}
+
+	50% {
+		transform:scale(1.25, 1.25);
+		transform:rotateF(180deg);
+	}
+
+	100% {
+		transform:scale(1, 1);
+		transform:rotateF(360deg);
+	}
+}
+
+.empty-animation {
+	animation-duration: 500ms;
+	animation-name: emptymove;
+	animation-timing-function: ease-in-out;
+	z-index: 111;
+}
+
+@keyframes emptymove {
+	0% {
+		transform:scale(1, 1);
+	}
+
+	50% {
+		transform:scale(0.75, 0.75);
+		opacity: 0.25;
+	}
+
+	100% {
+		transform:scale(1, 1);
+	}
 }
 
 footer {

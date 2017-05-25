@@ -41,6 +41,10 @@ function init() {
 	// Add handlers for mobile devices
 	document.addEventListener("touchstart", handleMoveStart);
 	document.addEventListener("touchend", handleMoveEnd);
+
+	document.addEventListener("touchmove", function(e) {
+		e.preventDefault();
+	}, {passive: false});
 }
 
 function startNewGame() {
@@ -142,8 +146,6 @@ function handleDirection(direction) {
 }
 
 function handleMoveStart(e) {
-	e.preventDefault();
-
 	if (state.blocked) {
 		return;
 	}
@@ -155,12 +157,16 @@ function handleMoveStart(e) {
 }
 
 function handleMoveEnd(e) {
-	e.preventDefault();
-
 	let t = e.changedTouches[0];
 
 	let dx = t.pageX - state.touch.x;
 	let dy = t.pageY - state.touch.y;
+
+	if (Math.abs(dx) <= 2 * t.radiusX && Math.abs(dy) <= 2 * t.radiusY) {
+		console.log('touch cancel');
+		state.blocked = false;
+		return;
+	}
 
 	state.touch = {};
 	let direction = '';
@@ -217,10 +223,19 @@ function moveElementByCoords({x, y}) {
 	let emptyLeft = emptyEl.style.left;
 	let emptyTop = emptyEl.style.top;
 
+	debugger;
+
 	movedEl.style.left = emptyLeft;
 	movedEl.style.top = emptyTop;
 	emptyEl.style.left = movedLeft;
 	emptyEl.style.top = movedTop;
+
+	movedEl.classList.add("move-animation");
+	emptyEl.classList.add("empty-animation");
+	setTimeout(function() {
+		movedEl.classList.remove("move-animation");
+		emptyEl.classList.remove("empty-animation");
+	}, 500);
 
 	// Update matrix
 	state.matrix[x][y] = emptyEl;
