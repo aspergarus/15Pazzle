@@ -1,5 +1,9 @@
 # 15Pazzle
 
+## Demo
+
+https://aspergarus.github.io/15Pazzle/
+
 ## Usage
 
 Open index.html in modern browser. You can move numbers to empty slot by:
